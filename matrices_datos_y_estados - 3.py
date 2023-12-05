@@ -144,7 +144,9 @@ def generar_entradas_aleatorias(n, m):
 # Clase para la interfaz gráfica
 class InterfazGrafica:
     def __init__(self):
-        # Inicialización de la ventana y configuración de elementos
+        """
+        Inicializa la interfaz gráfica y configura elementos como la ventana principal, etiquetas, botones, y estilos.
+        """
         self.window = ThemedTk(theme="arc")
         self.window.title("Proyecto Matrices de Datos y Estados")
         self.window.geometry("800x600")
@@ -227,30 +229,45 @@ class InterfazGrafica:
             messagebox.showerror("Error", "Debe ingresar valores numéricos.")
 
     def mostrar_canal_f(self):
+        """
+        Muestra la matriz EstadoCanalF en una ventana.
+        """
         if self.matrices is not None:
             self.mostrar_matriz(self.matrices[0], "Matriz EstadoCanalF")
         else:
             messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
 
     def mostrar_estado_f(self):
+        """
+        Muestra la matriz EstadoEstadoF en una ventana.
+        """
         if self.matrices is not None:
             self.mostrar_matriz(self.matrices[1], "Matriz EstadoEstadoF")
         else:
             messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
 
     def mostrar_canal_p(self):
+        """
+        Muestra la matriz EstadoCanalP en una ventana.
+        """
         if self.matrices is not None:
             self.mostrar_matriz(self.matrices[2], "Matriz EstadoCanalP")
         else:
             messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
 
     def mostrar_estado_p(self):
+        """
+        Muestra la matriz EstadoEstadoP en una ventana.
+        """
         if self.matrices is not None:
             self.mostrar_matriz(self.matrices[3], "Matriz EstadoEstadoP")
         else:
             messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
 
     def mostrar_datos(self):
+        """
+        Muestra la matriz de datos almacenada en una ventana.
+        """
         if self.muestras_almacenadas is not None:
             df = pd.DataFrame(self.muestras_almacenadas, columns=[f'Canal {i + 1}' for i in range(len(self.muestras_almacenadas[0]))])
             self.mostrar_dataframe(df, "Matriz de Datos")
@@ -311,10 +328,16 @@ class InterfazGrafica:
                 messagebox.showerror("Error", f"Error al cargar el archivo CSV: {str(e)}")
 
     def mostrar_matriz_ejemplo(self, titulo):
+        """
+        Muestra una matriz de ejemplo aleatoria en una ventana con el título proporcionado.
+        """
         matriz_ejemplo = np.random.randint(2, size=(8, 8))  # Matriz aleatoria de 0 y 1
         self.mostrar_matriz(matriz_ejemplo, titulo)
 
     def mostrar_matriz(self, matriz, titulo):
+        """
+        Muestra una matriz dada en una ventana con el título proporcionado.
+        """
         if self.matrices_window is None or not self.matrices_window.winfo_exists():
             self.matrices_window = tk.Toplevel(self.window)
             self.matrices_window.title(titulo)
@@ -357,6 +380,9 @@ class InterfazGrafica:
         print(table)
 
     def mostrar_matriz_datos(self, muestras):
+        """
+        Muestra una matriz de datos (muestras) en una ventana.
+        """
         if self.datos_window is None or not self.datos_window.winfo_exists():
             self.datos_window = tk.Toplevel(self.window)
             self.datos_window.title("Matriz de Datos")
