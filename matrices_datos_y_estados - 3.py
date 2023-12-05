@@ -281,22 +281,22 @@ class InterfazGrafica:
     #    if self.matrices is not None:
     #        EstadoFuturo_BC = self.calcular_estado_futuro_BC()
     #        EstadoFuturo_ABC = self.calcular_estado_futuro_ABC()
-#
+
     #        resultado_BC = marginalizar_y_normalizar(EstadoFuturo_BC, [0], [1])
     #        resultado_ABC = marginalizar_y_normalizar(EstadoFuturo_ABC, [0, 1], [2])
-#
+
     #        self.mostrar_matriz(resultado_BC, "Estado Futuro BC (Marginalizado y Normalizado)")
     #        self.mostrar_matriz(resultado_ABC, "Estado Futuro ABC (Marginalizado y Normalizado)")
     #    else:
     #        messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
-#
+
     #def calcular_estado_futuro_BC(self):
     #    matriz_marginalizada = marginalizar_y_normalizar(self.matrices[1], [1, 2], [1, 2])
     #    if matriz_marginalizada.shape == (2 ** 2, 2 ** 2):
     #        return matriz_marginalizada / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
     #    else:
     #        messagebox.showerror("Error", "Dimensiones incorrectas para la matriz marginalizada")
-#
+
     #def calcular_estado_futuro_ABC(self):
     #    resultado_marginalizacion = marginalizar_y_normalizar(self.matrices[1], [0, 2], [0, 2])
     #    if resultado_marginalizacion.shape == (2 ** 3, 2 ** 3):
