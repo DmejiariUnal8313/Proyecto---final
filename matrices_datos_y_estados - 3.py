@@ -338,6 +338,8 @@ class InterfazGrafica:
         if self.matrices_window is None or not self.matrices_window.winfo_exists():
             self.matrices_window = tk.Toplevel(self.window)
             self.matrices_window.title(titulo)
+            ##
+            self.matrices_window.geometry("600x400")
 
         frame = ttk.Frame(self.matrices_window)
         frame.grid(row=0, column=0)
@@ -350,6 +352,7 @@ class InterfazGrafica:
         tree["columns"] = column_headers
         for header in column_headers:
             tree.heading(header, text=header)
+            tree.column(header, anchor=tk.CENTER, width=50)
 
         if not matriz.size:
             # Si la matriz está vacía, agregar una fila con valores vacíos
@@ -383,12 +386,15 @@ class InterfazGrafica:
         if self.datos_window is None or not self.datos_window.winfo_exists():
             self.datos_window = tk.Toplevel(self.window)
             self.datos_window.title("Matriz de Datos")
+            ####
+            self.datos_window.geometry("600x400")
 
         frame = ttk.Frame(self.datos_window)
         frame.grid(row=0, column=0)
 
         # Crear Treeview para mostrar las muestras
         tree = ttk.Treeview(frame)
+        
 
         # Encabezados de columna
         if muestras:
@@ -396,9 +402,10 @@ class InterfazGrafica:
         else:
             column_headers = ["No hay datos"]
         tree["columns"] = column_headers
-        for header in column_headers:
-            tree.heading(header, text=header)
-
+        for col in column_headers:
+            tree.heading(col, text=col)
+        
+ 
         if not muestras:
             # Si la lista de muestras está vacía, agregar una fila con valores vacíos
             tree.insert("", 0, text="No hay datos", values=[""] * len(column_headers))
@@ -406,9 +413,9 @@ class InterfazGrafica:
             # Agregar filas
             for i, row in enumerate(muestras):
                 tree.insert("", i, text=f'Muestra {i + 1}', values=tuple(row))
-
         tree.pack()
 
+        
         # Crear tabla para mostrar las muestras
         table = PrettyTable()
         if muestras:
@@ -434,6 +441,9 @@ class InterfazGrafica:
         if self.datos_window is None or not self.datos_window.winfo_exists():
             self.datos_window = tk.Toplevel(self.window)
             self.datos_window.title(titulo)
+            ###
+            self.datos_window.geometry("800x400")
+            
 
         frame = ttk.Frame(self.datos_window)
         frame.grid(row=0, column=0)
@@ -445,13 +455,21 @@ class InterfazGrafica:
         column_headers = list(df.columns)
         tree["columns"] = column_headers
         for header in column_headers:
-            tree.heading(header, text=header)
+           tree.heading(header, text=header)
+           tree.column(header, anchor=tk.CENTER, width=60)
 
         # Agregar filas
         for i, (_, row) in enumerate(df.iterrows()):
             tree.insert("", i, text=f'Row {i}', values=tuple(row))
 
         tree.pack()
+        # Ajuste del ancho de las columnas
+
+      
+        
+ 
+
+
 
     def run(self):
         """
