@@ -124,23 +124,6 @@ def marginalizar_y_normalizar(matriz, indices_filas, indices_columnas):
     matriz_normalizada = normalizar(matriz_marginalizada.reshape(-1, 2 ** len(indices_filas)))
     return matriz_normalizada.reshape(-1, 2 ** len(indices_columnas))
 
-def generar_entradas_aleatorias(n, m):
-    """
-    Genera muestras aleatorias de longitud m.
-
-    Parameters:
-        n (int): Número de muestras a generar.
-        m (int): Longitud de cada muestra.
-
-    Returns:
-        list: Lista de muestras generadas.
-    """
-    muestras = []
-    for i in range(n):
-        muestra = np.random.randint(2, size=m)
-        muestras.append(muestra)
-    return muestras
-
 # Clase para la interfaz gráfica
 class InterfazGrafica:
     def __init__(self):
@@ -157,7 +140,7 @@ class InterfazGrafica:
         style = ttk.Style()
         style.configure("TButton", padding=5, font=('Helvetica', 12))
 
-        self.n_label = ttk.Label(self.window, text="Número de muestras (n):", font=('Helvetica', 12))
+        self.n_label = ttk.Label(self.window, text="Número de muestras (n):", font=('Helvetica', 12)) 
         self.m_label = ttk.Label(self.window, text="Número de canales (m):", font=('Helvetica', 12))
         self.n_entry = ttk.Entry(self.window)
         self.m_entry = ttk.Entry(self.window)
@@ -405,7 +388,7 @@ class InterfazGrafica:
         for col in column_headers:
             tree.heading(col, text=col)
         
- 
+
         if not muestras:
             # Si la lista de muestras está vacía, agregar una fila con valores vacíos
             tree.insert("", 0, text="No hay datos", values=[""] * len(column_headers))
@@ -455,8 +438,8 @@ class InterfazGrafica:
         column_headers = list(df.columns)
         tree["columns"] = column_headers
         for header in column_headers:
-           tree.heading(header, text=header)
-           tree.column(header, anchor=tk.CENTER, width=60)
+            tree.heading(header, text=header)
+            tree.column(header, anchor=tk.CENTER, width=60)
 
         # Agregar filas
         for i, (_, row) in enumerate(df.iterrows()):
@@ -464,12 +447,6 @@ class InterfazGrafica:
 
         tree.pack()
         # Ajuste del ancho de las columnas
-
-      
-        
- 
-
-
 
     def run(self):
         """
