@@ -73,56 +73,56 @@ def procesamiento_datos(n, m, muestras):
         muestras_almacenadas,
     )
 
-#def marginalizar(matriz, indices):
-#    """
-#    Realiza la marginalización de una matriz dado un conjunto de índices.
-#
-#    Parameters:
-#        matriz (np.ndarray): Matriz a marginalizar.
-#        indices (list): Lista de índices de columnas a marginalizar.
-#
-#    Returns:
-#        np.ndarray: Matriz marginalizada.
-#    """
-#    if matriz is None:
-#        return np.zeros((0,))  # Retorna una matriz vacía si la matriz es None
-#    return np.sum(matriz[:, indices], axis=1) / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
-#
-#def normalizar(matriz):
-#    """
-#    Normaliza una matriz dividiendo cada fila por la suma de sus elementos.
-#
-#    Parameters:
-#        matriz (np.ndarray): Matriz a normalizar.
-#
-#    Returns:
-#        np.ndarray: Matriz normalizada.
-#    """
-#    suma_filas = np.sum(matriz, axis=1, keepdims=True)
-#
-#    # Reemplazar ceros en la suma para evitar divisiones por cero
-#    suma_filas[suma_filas == 0] = 1
-#
-#    # Normalizar la matriz
-#    matriz_normalizada = matriz / suma_filas
-#
-#    return matriz_normalizada
-#
-#def marginalizar_y_normalizar(matriz, indices_filas, indices_columnas):
-#    """
-#    Realiza la marginalización y normalización de una matriz dado un conjunto de índices de filas y columnas.
-#
-#    Parameters:
-#        matriz (np.ndarray): Matriz a procesar.
-#        indices_filas (list): Lista de índices de filas a marginalizar.
-#        indices_columnas (list): Lista de índices de columnas a marginalizar.
-#
-#    Returns:
-#        np.ndarray: Matriz resultante después de la marginalización y normalización.
-#    """
-#    matriz_marginalizada = marginalizar(matriz, indices_columnas)
-#    matriz_normalizada = normalizar(matriz_marginalizada.reshape(-1, 2 ** len(indices_filas)))
-#    return matriz_normalizada.reshape(-1, 2 ** len(indices_columnas))
+def marginalizar(matriz, indices):
+    """
+    Realiza la marginalización de una matriz dado un conjunto de índices.
+
+    Parameters:
+        matriz (np.ndarray): Matriz a marginalizar.
+        indices (list): Lista de índices de columnas a marginalizar.
+
+    Returns:
+        np.ndarray: Matriz marginalizada.
+    """
+    if matriz is None:
+        return np.zeros((0,))  # Retorna una matriz vacía si la matriz es None
+    return np.sum(matriz[:, indices], axis=1) / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
+
+def normalizar(matriz):
+    """
+    Normaliza una matriz dividiendo cada fila por la suma de sus elementos.
+
+    Parameters:
+        matriz (np.ndarray): Matriz a normalizar.
+
+    Returns:
+        np.ndarray: Matriz normalizada.
+    """
+    suma_filas = np.sum(matriz, axis=1, keepdims=True)
+
+    # Reemplazar ceros en la suma para evitar divisiones por cero
+    suma_filas[suma_filas == 0] = 1
+
+    # Normalizar la matriz
+    matriz_normalizada = matriz / suma_filas
+
+    return matriz_normalizada
+
+def marginalizar_y_normalizar(matriz, indices_filas, indices_columnas):
+    """
+    Realiza la marginalización y normalización de una matriz dado un conjunto de índices de filas y columnas.
+
+    Parameters:
+        matriz (np.ndarray): Matriz a procesar.
+        indices_filas (list): Lista de índices de filas a marginalizar.
+        indices_columnas (list): Lista de índices de columnas a marginalizar.
+
+    Returns:
+        np.ndarray: Matriz resultante después de la marginalización y normalización.
+    """
+    matriz_marginalizada = marginalizar(matriz, indices_columnas)
+    matriz_normalizada = normalizar(matriz_marginalizada.reshape(-1, 2 ** len(indices_filas)))
+    return matriz_normalizada.reshape(-1, 2 ** len(indices_columnas))
 
 def generar_entradas_aleatorias(n, m):
     """
@@ -169,7 +169,7 @@ class InterfazGrafica:
         self.btn_mostrar_canal_p = ttk.Button(self.window, text="Mostrar EstadoCanalP", command=self.mostrar_canal_p, style="TButton")
         self.btn_mostrar_estado_p = ttk.Button(self.window, text="Mostrar EstadoEstadoP", command=self.mostrar_estado_p, style="TButton")
         self.btn_mostrar_matriz_ejemplo = ttk.Button(self.window, text="Mostrar Matriz Ejemplo", command=lambda: self.mostrar_matriz_ejemplo("Matriz Ejemplo"), style="TButton")
-        #self.btn_marginalizar_y_normalizar = ttk.Button(self.window, text="Marginalizar y Normalizar", command=self.marginalizar_y_normalizar, style="TButton")
+        self.btn_marginalizar_y_normalizar = ttk.Button(self.window, text="Marginalizar y Normalizar", command=self.marginalizar_y_normalizar, style="TButton")
         self.btn_mostrar_datos = ttk.Button(self.window, text="Mostrar Datos", command=self.mostrar_datos, style="TButton")
         self.btn_cargar_csv = ttk.Button(self.window, text="Cargar desde CSV", command=self.cargar_csv, style="TButton")
         self.btn_salir = ttk.Button(self.window, text="Salir", command=self.window.quit, style="TButton")
@@ -187,7 +187,7 @@ class InterfazGrafica:
         self.btn_mostrar_estado_p.grid(row=7, column=0, columnspan=2, pady=5)
         self.btn_mostrar_datos.grid(row=8, column=0, columnspan=2, pady=5)
         self.btn_cargar_csv.grid(row=9, column=0, columnspan=2, pady=5)
-        #self.btn_marginalizar_y_normalizar.grid(row=10, column=0, columnspan=2, pady=5)
+        self.btn_marginalizar_y_normalizar.grid(row=10, column=0, columnspan=2, pady=5)
         self.btn_mostrar_matriz_ejemplo.grid(row=11, column=0, columnspan=2, pady=5)
         self.btn_salir.grid(row=12, column=0, columnspan=2, pady=5)
 
@@ -274,35 +274,32 @@ class InterfazGrafica:
         else:
             messagebox.showwarning("Advertencia", "No hay datos generados.")
 
-    #def marginalizar_y_normalizar(self):
-    #    """
-    #    Muestra la matriz EstadoFuturoBC y EstadoFuturoABC marginalizadas y normalizadas en una ventana de mensaje.
-    #    """
-    #    if self.matrices is not None:
-    #        EstadoFuturo_BC = self.calcular_estado_futuro_BC()
-    #        EstadoFuturo_ABC = self.calcular_estado_futuro_ABC()
+    def marginalizar_y_normalizar(self):
+        """
+        Muestra la matriz EstadoFuturoBC y EstadoFuturoABC marginalizadas y normalizadas en una ventana de mensaje.
+        """
+        if self.matrices is not None:
+            EstadoFuturo_BC = self.calcular_estado_futuro_BC()
+            EstadoFuturo_ABC = self.calcular_estado_futuro_ABC()
+            resultado_BC = marginalizar_y_normalizar(EstadoFuturo_BC, [0], [1])
+            resultado_ABC = marginalizar_y_normalizar(EstadoFuturo_ABC, [0, 1], [2])
+            self.mostrar_matriz(resultado_BC, "Estado Futuro BC (Marginalizado y Normalizado)")
+            self.mostrar_matriz(resultado_ABC, "Estado Futuro ABC (Marginalizado y Normalizado)")
+        else:
+            messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
 
-    #        resultado_BC = marginalizar_y_normalizar(EstadoFuturo_BC, [0], [1])
-    #        resultado_ABC = marginalizar_y_normalizar(EstadoFuturo_ABC, [0, 1], [2])
-
-    #        self.mostrar_matriz(resultado_BC, "Estado Futuro BC (Marginalizado y Normalizado)")
-    #        self.mostrar_matriz(resultado_ABC, "Estado Futuro ABC (Marginalizado y Normalizado)")
-    #    else:
-    #        messagebox.showwarning("Advertencia", "Debe calcular las matrices primero (opción 1 o 2).")
-
-    #def calcular_estado_futuro_BC(self):
-    #    matriz_marginalizada = marginalizar_y_normalizar(self.matrices[1], [1, 2], [1, 2])
-    #    if matriz_marginalizada.shape == (2 ** 2, 2 ** 2):
-    #        return matriz_marginalizada / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
-    #    else:
-    #        messagebox.showerror("Error", "Dimensiones incorrectas para la matriz marginalizada")
-
-    #def calcular_estado_futuro_ABC(self):
-    #    resultado_marginalizacion = marginalizar_y_normalizar(self.matrices[1], [0, 2], [0, 2])
-    #    if resultado_marginalizacion.shape == (2 ** 3, 2 ** 3):
-    #        return resultado_marginalizacion / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
-    #    else:
-    #        messagebox.showerror("Error", "Dimensiones incorrectas para la matriz marginalizada")
+    def calcular_estado_futuro_BC(self):
+        matriz_marginalizada = marginalizar_y_normalizar(self.matrices[1], [1, 2], [1, 2])
+        if matriz_marginalizada.shape == (2 ** 2, 2 ** 2):
+            return matriz_marginalizada / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
+        else:
+            messagebox.showerror("Error", "Dimensiones incorrectas para la matriz marginalizada")
+    def calcular_estado_futuro_ABC(self):
+        resultado_marginalizacion = marginalizar_y_normalizar(self.matrices[1], [0, 2], [0, 2])
+        if resultado_marginalizacion.shape == (2 ** 3, 2 ** 3):
+            return resultado_marginalizacion / 2  # Dividimos entre 2 para ajustar según la lógica mencionada
+        else:
+            messagebox.showerror("Error", "Dimensiones incorrectas para la matriz marginalizada")
 
     def cargar_csv(self):
         """
