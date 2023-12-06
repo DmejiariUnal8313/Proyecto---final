@@ -1,8 +1,8 @@
 # proyecto---final
 
-# Santiago Mazo Orozco
+# Santiago Mazo Orozco - CC 1004755636
 
-# Daniel Felipe Mejía
+# Daniel Felipe Mejía - CC 1007233138
 
 # Consideraciones
  Version Python: minimo estable 3.9.13
